@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
 const {parserSync} = require('shargs')
+const {command} = require('shargs-opts')
+
+const git    = command('git', [])
 
 const parser = parserSync()
-const parse  = parser()
+const parse  = parser(git)
 
 const argv   = process.argv.slice(2)
 const res    = parse(argv)

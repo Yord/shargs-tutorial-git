@@ -102,6 +102,56 @@ Note though, that the parser did work anyway, by reporting an error, helping us 
 
 </details>
 
+### Command
+
+Our first `parser` did not parse anything, but instead reported an error.
+We can make it work by adding a `command`:
+
+```js
+#!/usr/bin/env node
+
+const {parserSync} = require('shargs')
+const {command} = require('shargs-opts')
+
+const git    = command('git', [])
+
+const parser = parserSync()
+const parse  = parser(git)
+
+const argv   = process.argv.slice(2)
+const res    = parse(argv)
+
+console.log(JSON.stringify(res, null, 2))
+```
+
+We added a `git` `command` that has no options, yet.
+`git` is then passed to `parser`.
+Let us have a look at what changed.
+
+<details>
+<summary>
+<code>./git --help</code>
+</summary>
+
+<br />
+
+```json
+{
+  errs: [],
+  args: {
+    _: ["--help"]
+  }
+}
+```
+
+The error is gone and we have `args`.
+
+Note that `git` does not have options.
+This is why `"--help"` does not mean anything to the `parser`.
+It ends up in the <em>rest array</em> `_`, that holds all tokens that could not be interpreted.
+
+</details>
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!
