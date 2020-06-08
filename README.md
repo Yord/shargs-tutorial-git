@@ -218,9 +218,9 @@ const parser = parserSync(stages)
 ```
 
 We have modified `parser`'s behavior by adding an `args` stage to its `stages` parameter.
-[`flagAsBool`](https://github.com/Yord/shargs#flagAsBool) transforms a `flag` with a given key (here `'help'`) into a bool.
+[`flagAsBool`](https://github.com/Yord/shargs/tree/0.24.4#flagAsBool) transforms a `flag` with a given key (here `'help'`) into a bool.
 
-Shargs works in seven different [steps](https://github.com/Yord/shargs#stages) that each take one or more stages.
+Shargs works in seven different [steps](https://github.com/Yord/shargs/tree/0.24.4#stages) that each take one or more stages.
 The `args` step is at the sixth position.
 
 Let us see `stages` in action.
@@ -348,7 +348,7 @@ Indeed, the `init` field has now a nested `quiet` field with a `flag` value.
 Many commands count their `quiet` arguments and hide logging information based on how often `-q` was passed.
 Usually, these commands let you write `-qqq` instead of `-q -q -q`.
 A feature shargs calls <em>short option groups</em>.
-They are supported by adding the [`splitShortOpts`](https://github.com/Yord/shargs#splitShortOpts) stage:
+They are supported by adding the [`splitShortOpts`](https://github.com/Yord/shargs/tree/0.24.4#splitShortOpts) stage:
 
 ```js
 // ...
@@ -408,8 +408,8 @@ const stages = {
 ```
 
 We have changed two things, here:
-First, we have added the [`flagAsNumber`](https://github.com/Yord/shargs#flagAsNumber) stage to transform `quiet`.
-Second, we have generalized `flagAsBool` to [`flagsAsBools`](https://github.com/Yord/shargs#flagsAsBools),
+First, we have added the [`flagAsNumber`](https://github.com/Yord/shargs/tree/0.24.4#flagAsNumber) stage to transform `quiet`.
+Second, we have generalized `flagAsBool` to [`flagsAsBools`](https://github.com/Yord/shargs/tree/0.24.4#flagsAsBools),
 a stage that transforms all remaining `flag`s to bools.
 
 <details>
@@ -495,7 +495,7 @@ In the second case, `"commit"` is stored in the `git` `command`'s rest array.
 The reason for this difference is `--help`.
 Upon reaching `--help`, the `parser` tries to find the token in its options.
 In the second case, the parser first looks for `--help` in `init`'s options.
-Since it does not find an option with the [`args`](https://github.com/Yord/shargs#args) `--help`,
+Since it does not find an option with the [`args`](https://github.com/Yord/shargs/tree/0.24.4#args) `--help`,
 it continues searching in `init`'s parent `git`.
 Here, it finds the `help` option that has a `--help` argument.
 
@@ -530,7 +530,7 @@ We have added the new `commit` `subcommand` that has three different kinds of ar
 2.  `message` is a `string` option that has an argument name (`-m` or `--message`)
     as well as an argument value (one `string`).
 3.  `file` is a positional argument that has no argument name, only an argument value.
-    `file` is also [variadic](https://github.com/Yord/shargs#variadic-pos-arg),
+    `file` is also [variadic](https://github.com/Yord/shargs/tree/0.24.4#variadic-pos-arg),
     meaning it takes not one, but any number of values.
 
 Let us test `commit`.
@@ -567,7 +567,7 @@ The `message` field is indeed a string and `file` collects any number of argumen
 ### Multiple Subcommands
 
 One thing that makes shargs special,
-is its support for specifying [multiple subcommands](https://github.com/Yord/shargs#multiple-subcommands).
+is its support for specifying [multiple subcommands](https://github.com/Yord/shargs/tree/0.24.4#multiple-subcommands).
 
 Imagine you could write the following in real `git`:
 
@@ -611,7 +611,7 @@ you should not rely on the object's field order.
 
 Each command has to have a help page.
 We can automatically generate a help text based on `git` with
-[`shargs-usage`](https://github.com/Yord/shargs#automatic-usage-documentation-generation):
+[`shargs-usage`](https://github.com/Yord/shargs/tree/0.24.4#automatic-usage-documentation-generation):
 
 ```js
 // ...
@@ -649,7 +649,7 @@ Note, that the list is not sorted, but is presented in the order we have specifi
 
 ### Descriptions
 
-We can enhance the usage documentation by adding [`desc`](https://github.com/Yord/shargs#desc)riptions
+We can enhance the usage documentation by adding [`desc`](https://github.com/Yord/shargs/tree/0.24.4#desc)riptions
 to `git`'s options:
 
 ```js
@@ -745,7 +745,7 @@ Let us fix that:
 // ...
 ```
 
-We have used the [`descArg`](https://github.com/Yord/shargs#descArg) field to change `message`'s value description
+We have used the [`descArg`](https://github.com/Yord/shargs/tree/0.24.4#descArg) field to change `message`'s value description
 from `<string>` to `<msg>`.
 This has given us just enough space to fix the layout.
 
@@ -847,13 +847,13 @@ const {desc, optsListsWith, space, synopses, usage} = require('shargs-usage')
 ```
 
 First off, we change the left padding of the `optsLists` to be just `2`
-with [`optsListsWith`](https://github.com/Yord/shargs#optsListsWith).
+with [`optsListsWith`](https://github.com/Yord/shargs/tree/0.24.4#optsListsWith).
 Then, we add a `style` object and pass it to `usage`.
 
 The `style` says that `line`s should be `50` columns wide,
 while `cols` specifies the first column's `width` to be `20` and the second's to be `30`.
 
-You can read up in shargs' documentation (e.g. with [`optsListsWith`](https://github.com/Yord/shargs#optsListsWith)),
+You can read up in shargs' documentation (e.g. with [`optsListsWith`](https://github.com/Yord/shargs/tree/0.24.4#optsListsWith)),
 what `style` field a component uses for its layout.
 You could also invent new `style` fields and configure components to use those.
 
