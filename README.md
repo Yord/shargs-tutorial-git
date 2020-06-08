@@ -79,15 +79,15 @@ Let us now call this minimal shargs parser to see what it prints out.
 
 ```json
 {
-  errs: [
+  "errs": [
     {
-      code: "CommandExpected",
-      msg: "Expected a command with a string 'key' field and an 'opts' array.",
-      info: {opt: {}}
+      "code": "CommandExpected",
+      "msg": "Expected a command with a string 'key' field and an 'opts' array.",
+      "info": {"opt": {}}
     }
   ],
-  args: {
-    _: []
+  "args": {
+    "_": []
   }
 }
 ```
@@ -137,9 +137,9 @@ Let us have a look at what changed.
 
 ```json
 {
-  errs: [],
-  args: {
-    _: ["--help"]
+  "errs": [],
+  "args": {
+    "_": ["--help"]
   }
 }
 ```
@@ -181,10 +181,10 @@ Now we should be able to parse `--help`:
 
 ```json
 {
-  errs: [],
-  args: {
-    _: [],
-    help: { type: "flag", count: 1 }
+  "errs": [],
+  "args": {
+    "_": [],
+    "help": { "type": "flag", "count": 1 }
   }
 }
 ```
@@ -234,10 +234,10 @@ Let us see `stages` in action.
 
 ```json
 {
-  errs: [],
-  args: {
-    _: [],
-    help: true
+  "errs": [],
+  "args": {
+    "_": [],
+    "help": true
   }
 }
 ```
@@ -282,11 +282,11 @@ Let us see what calling `init` yields.
 
 ```json
 {
-  errs: [],
-  args: {
-    _: [],
-    init: {
-      _: []
+  "errs": [],
+  "args": {
+    "_": [],
+    "init": {
+      "_": []
     }
   }
 }
