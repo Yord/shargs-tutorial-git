@@ -4,7 +4,9 @@ const {parserSync} = require('shargs')
 const {command, flag, subcommand} = require('shargs-opts')
 const {flagAsBool} = require('shargs-parser')
 
-const init = subcommand([])
+const init = subcommand([
+  flag('quiet', ['-q', '--quiet'])
+])
 
 const opts = [
   flag('help', ['--help']),

@@ -300,6 +300,49 @@ and thus has its own rest array `_`.
 
 </details>
 
+### Subcommand Options
+
+Like `command`s, `subcommand`s may have options of their own:
+
+```js
+// ...
+const init = subcommand([
+  flag('quiet', ['-q', '--quiet'])
+])
+// ...
+```
+
+We have added a `quiet` flag, that is meant to suppress unnecessary output.
+
+Let us see if it works with `init`.
+
+<details>
+<summary>
+<code>./git init -q</code>
+</summary>
+
+<br />
+
+```json
+{
+  "errs": [],
+  "args": {
+    "_": [],
+    "init": {
+      "_": [],
+      "quiet": {
+        "type": "flag",
+        "count": 1
+      }
+    }
+  }
+}
+```
+
+Indeed, the `init` field has now a nested `quiet` field with a `flag` value.
+
+</details>
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!
