@@ -3,16 +3,16 @@
 const {parserSync} = require('shargs')
 const {command, flag, string, subcommand, variadicPos} = require('shargs-opts')
 const {flagAsNumber, flagsAsBools, splitShortOpts} = require('shargs-parser')
-const {optsList} = require('shargs-usage')
+const {optsLists} = require('shargs-usage')
 
 const init = subcommand([
-  flag('quiet', ['-q', '--quiet'])
+  flag('quiet', ['-q', '--quiet'], {desc: 'Only print error and warning messages.'})
 ])
 
 const commit = subcommand([
-  flag('all', ['-a', '--all']),
-  string('message', ['-m', '--message']),
-  variadicPos('file')
+  flag('all', ['-a', '--all'], {desc: 'Automatically stage files that have been modified and deleted.'}),
+  string('message', ['-m', '--message'], {desc: 'Use <string> as the commit message.'}),
+  variadicPos('file', {desc: 'A list of files to commit.'})
 ])
 
 const opts = [
@@ -21,7 +21,7 @@ const opts = [
   commit('commit', ['commit'], {desc: 'Record changes to the repository.'})
 ]
 
-const git    = command('git', opts)
+const git    = command('git', opts, {desc: 'A simple command-line interface for git.'})
 
 const stages = {
   argv: [splitShortOpts],
@@ -35,7 +35,7 @@ const argv   = process.argv.slice(2)
 const res    = parse(argv)
 
 if (res.args.help) {
-  const help = optsList(git)()
+  const help = optsLists(git)()
   console.log(help)
 } else {
   console.log(JSON.stringify(res, null, 2))

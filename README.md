@@ -680,6 +680,60 @@ commit                   Record changes to the repository.
 
 </details>
 
+### Subcommands Documentation
+
+`--help` would be even more helpful, if it would also show the `subcommand`s' options:
+
+```js
+// ...
+const {optsLists} = require('shargs-usage')
+// ...
+const init = subcommand([
+  flag('quiet', ['-q', '--quiet'], {desc: 'Only print error and warning messages.'})
+])
+
+const commit = subcommand([
+  flag('all', ['-a', '--all'], {desc: 'Automatically stage files that have been modified and deleted.'}),
+  string('message', ['-m', '--message'], {desc: 'Use <string> as the commit message.'}),
+  variadicPos('file', {desc: 'A list of files to commit.'})
+])
+// ...
+const git = command('git', opts, {desc: 'A simple command-line interface for git.'})
+// ...
+  const help = optsLists(git)()
+// ...
+```
+
+We have added `desc`riptions to all options, now.
+
+Another update is easy to miss:
+Instead of `optsList`, we use `optsLists` (plural) to generate our usage documentation.
+`optsLists` recursively documents all `subcommand` options.
+
+<details>
+<summary>
+<code>./git --help</code>
+</summary>
+
+<br />
+
+```bash
+--help                   Print this help message.                               
+init                     Create an empty Git repository or reinitialize an      
+                         existing one.                                          
+    -q, --quiet          Only print error and warning messages.                 
+commit                   Record changes to the repository.                      
+    -a, --all            Automatically stage files that have been modified and  
+                         deleted.                                               
+    -m,                  Use <string> as the commit message.                    
+    --message=<string>                                                          
+    <file>...            A list of files to commit.                             
+```
+
+All options are now documented.
+
+</details>
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!
