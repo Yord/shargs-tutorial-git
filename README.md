@@ -900,15 +900,15 @@ Please report issues [in the `shargs` tracker][issues]!
 
 ## License
 
-`shargs-example-repl` is [MIT licensed][license].
+`shargs-tutorial-git` is [MIT licensed][license].
 
 
 
 [contribute]: https://github.com/Yord/shargs#contributing
 [issues]: https://github.com/Yord/shargs/issues
-[license]: https://github.com/Yord/shargs-example-repl/blob/master/LICENSE
+[license]: https://github.com/Yord/shargs-tutorial-git/blob/master/LICENSE
 [node]: https://nodejs.org/
-[repl]: https://github.com/Yord/shargs-example-repl/blob/master/repl
+[repl]: https://github.com/Yord/shargs-tutorial-git/blob/master/repl
 [shargs]: https://github.com/Yord/shargs
 [shield-license]: https://img.shields.io/badge/license-MIT-yellow.svg?labelColor=313A42
 [shield-node]: https://img.shields.io/node/v/shargs?color=red&labelColor=313A42
