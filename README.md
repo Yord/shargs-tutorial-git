@@ -824,6 +824,76 @@ The usage documentation comes together nicely!
 
 </details>
 
+### With Style
+
+Now that the contents of our usage documentation are complete, let us finish off by adding some styles:
+
+```js
+// ...
+const {desc, optsListsWith, space, synopses, usage} = require('shargs-usage')
+// ...
+  const style = {
+    line: [{width: 50}],
+    cols: [{width: 20}, {width: 30}]
+  }
+  const help = usage([
+    synopses,
+    space,
+    optsListsWith({pad: 2}),
+    space,
+    desc
+  ])(git)(style)
+// ...
+```
+
+First off, we change the left padding of the `optsLists` to be just `2`
+with [`optsListsWith`](https://github.com/Yord/shargs#optsListsWith).
+Then, we add a `style` object and pass it to `usage`.
+
+The `style` says that `line`s should be `50` columns wide,
+while `cols` specifies the first column's `width` to be `20` and the second's to be `30`.
+
+You can read up in shargs' documentation (e.g. with [`optsListsWith`](https://github.com/Yord/shargs#optsListsWith)),
+what `style` field a component uses for its layout.
+You could also invent new `style` fields and configure components to use those.
+
+Let us print `help` one last time.
+
+<details>
+<summary>
+<code>./git --help</code>
+</summary>
+
+<br />
+
+```bash
+git [--help]                                      
+git init [-q|--quiet]                             
+git commit [-a|--all] [-m|--message] [<file>...]  
+                                                  
+--help              Print this help message.      
+init                Create an empty Git repository
+                    or reinitialize an existing   
+                    one.                          
+  -q, --quiet       Only print error and warning  
+                    messages.                     
+commit              Record changes to the         
+                    repository.                   
+  -a, --all         Automatically stage files that
+                    have been modified and        
+                    deleted.                      
+  -m,               Use <msg> as the commit       
+  --message=<msg>   message.                      
+  <file>...         A list of files to commit.    
+                                                  
+A simple command-line interface for git.          
+```
+
+The usage documentation is now very compact.
+If you do not like it, yet, keep changing `style` until you are satisfied.
+
+</details>
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!
