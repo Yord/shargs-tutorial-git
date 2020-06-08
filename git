@@ -1,16 +1,23 @@
 #!/usr/bin/env node
 
 const {parserSync} = require('shargs')
-const {command, flag, subcommand} = require('shargs-opts')
+const {command, flag, string, subcommand, variadicPos} = require('shargs-opts')
 const {flagAsNumber, flagsAsBools, splitShortOpts} = require('shargs-parser')
 
 const init = subcommand([
   flag('quiet', ['-q', '--quiet'])
 ])
 
+const commit = subcommand([
+  flag('all', ['-a', '--all']),
+  string('message', ['-m', '--message']),
+  variadicPos('file')
+])
+
 const opts = [
   flag('help', ['--help']),
-  init('init', ['init'])
+  init('init', ['init']),
+  commit('commit', ['commit'])
 ]
 
 const git    = command('git', opts)

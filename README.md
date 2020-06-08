@@ -502,6 +502,68 @@ Here, it finds the `help` option that has a `--help` argument.
 However, it has left the `init` `subcommand`'s scope for good and is now back in `git`'s scope.
 This is why `commit` is in `git`'s rest array, while it is still in `init`'s rest array in the first case.
 
+### Positional Arguments
+
+Besides arguments that are passed by argument name (aka options), many commands have arguments that are passed by position.
+Shargs supports both, options and positional arguments:
+
+```js
+// ...
+const {flag, string, subcommand, variadicPos} = require('shargs-opts')
+
+const commit = subcommand([
+  flag('all', ['-a', '--all']),
+  string('message', ['-m', '--message']),
+  variadicPos('file')
+])
+
+const opts   = [
+  // ...
+  commit('commit', ['commit'])
+]
+// ...
+```
+
+We have added the new `commit` `subcommand` that has three different kinds of arguments:
+
+1.  `all` is a `flag` that has just an argument name (`-a` or `--all`), but no argument values.
+2.  `message` is a `string` option that has an argument name (`-m` or `--message`)
+    as well as an argument value (one `string`).
+3.  `file` is a positional argument that has no argument name, only an argument value.
+    `file` is also [variadic](https://github.com/Yord/shargs#variadic-pos-arg),
+    meaning it takes not one, but any number of values.
+
+Let us test `commit`.
+
+<details>
+<summary>
+<code>./git commit -a -m 'First commit' package.json README.md</code>
+</summary>
+
+<br />
+
+```json
+{
+  "errs": [],
+  "args": {
+    "_": [],
+    "commit": {
+      "_": [],
+      "all": true,
+      "message": "First commit",
+      "file": [
+        "package.json",
+        "README.md"
+      ]
+    }
+  }
+}
+```
+
+The `message` field is indeed a string and `file` collects any number of argument values.
+
+</details>
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!
