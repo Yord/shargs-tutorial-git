@@ -3,6 +3,7 @@
 const {parserSync} = require('shargs')
 const {command, flag, string, subcommand, variadicPos} = require('shargs-opts')
 const {flagAsNumber, flagsAsBools, splitShortOpts} = require('shargs-parser')
+const {optsList} = require('shargs-usage')
 
 const init = subcommand([
   flag('quiet', ['-q', '--quiet'])
@@ -33,4 +34,9 @@ const parse  = parser(git)
 const argv   = process.argv.slice(2)
 const res    = parse(argv)
 
-console.log(JSON.stringify(res, null, 2))
+if (res.args.help) {
+  const help = optsList(git)()
+  console.log(help)
+} else {
+  console.log(JSON.stringify(res, null, 2))
+}

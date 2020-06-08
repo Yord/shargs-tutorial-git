@@ -607,6 +607,46 @@ you should not rely on the object's field order.
 
 </details>
 
+### Usage Documentation
+
+Each command has to have a help page.
+We can automatically generate a help text based on `git` with
+[`shargs-usage`](https://github.com/Yord/shargs#automatic-usage-documentation-generation):
+
+```js
+// ...
+const {optsList} = require('shargs-usage')
+// ...
+
+if (res.args.help) {
+  const help = optsList(git)()
+  console.log(help)
+} else {
+  console.log(JSON.stringify(res, null, 2))
+}
+```
+
+If the `args` field of the `parse` results has a truthy `help` field, we `log` `help` to the `console`.
+For now, `help` is just an `optsList` that layouts `git`'s options.
+
+<details>
+<summary>
+<code>./git --help</code>
+</summary>
+
+<br />
+
+```bash
+--help                                                                          
+init                                                                            
+commit                                                                          
+```
+
+We get a plain list of all `git` options.
+Note, that the list is not sorted, but is presented in the order we have specified in `opts`.
+
+</details>
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!
