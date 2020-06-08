@@ -246,6 +246,60 @@ The `help` field is now `true`.
 
 </details>
 
+### Subcommands
+
+Git has many subcommands that do various tasks.
+Let us start by adding the `init` `subcommand`:
+
+```js
+// ...
+const {flag, subcommand} = require('shargs-opts')
+// ...
+const init = subcommand([])
+
+const opts = [
+  // ...
+  init('init', ['init'])
+]
+// ...
+```
+
+For now, `init` is a subcommand without any options.
+Note, that we do not call it as `--init`, like we did with `--help`, but just as `init`.
+
+Shargs does not force you to use a specific syntax for argument names.
+You can choose any string you like, as long as it does not contain whitespaces.
+Since, by convention, subcommands do not start with `--`, I decided for this case, to just use `init` as an argument.
+
+Let us see what calling `init` yields.
+
+<details>
+<summary>
+<code>./git init</code>
+</summary>
+
+<br />
+
+```json
+{
+  errs: [],
+  args: {
+    _: [],
+    init: {
+      _: []
+    }
+  }
+}
+```
+
+`args` now has an `init` field.
+Note, that although we did not provide any other arguments and although `init` has no options,
+the `init` field has a `_` array in `args`.
+This is because every `command` and `subcommand` may receive arguments it does not recognize
+and thus has its own rest array `_`.
+
+</details>
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!
