@@ -152,6 +152,51 @@ It ends up in the <em>rest array</em> `_`, that holds all tokens that could not 
 
 </details>
 
+### Options
+
+Let us add a `--help` option to the `git` `command`, next:
+
+```js
+// ...
+const {flag} = require('shargs-opts')
+
+const opts = [
+  flag('help', ['--help'])
+]
+
+const git = command('git', opts)
+// ...
+```
+
+We chose to make `help` a `flag`, so we can just call `--help` without any values.
+
+Now we should be able to parse `--help`:
+
+<details>
+<summary>
+<code>./git --help</code>
+</summary>
+
+<br />
+
+```json
+{
+  errs: [],
+  args: {
+    _: [],
+    help: { type: "flag", count: 1 }
+  }
+}
+```
+
+The `_` array in `args` is empty, and we have successfully parsed `--help` into the `help` field.
+
+Note that while `--help` is the command-line argument we use, `help` (without `--`) is the field name.
+This is reflected in the definition of the `flag`.
+Shargs separates between the external API of providing an argument, and the internal API of storing the values.
+
+</details>
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!
