@@ -770,6 +770,60 @@ commit                   Record changes to the repository.
 
 </details>
 
+### Enhance Help
+
+We can do better than just displaying the options in a list and add some more elements to our help:
+
+```js
+// ...
+const {desc, optsLists, space, synopses, usage} = require('shargs-usage')
+// ...
+if (res.args.help) {
+  const help = usage([
+    synopses,
+    space,
+    optsLists,
+    space,
+    desc
+  ])(git)()
+  console.log(help)
+} else {
+  console.log(JSON.stringify(res, null, 2))
+}
+```
+
+We have also added `synopses` (mind the plural) and `git`'s `desc`ription to `help`.
+`usage` is used to group these elements together, so we only have to pass the `git` `command` once.
+
+<details>
+<summary>
+<code>./git --help</code>
+</summary>
+
+<br />
+
+```bash
+git [--help]                                                                    
+git init [-q|--quiet]                                                           
+git commit [-a|--all] [-m|--message] [<file>...]                                
+                                                                                
+--help                   Print this help message.                               
+init                     Create an empty Git repository or reinitialize an      
+                         existing one.                                          
+    -q, --quiet          Only print error and warning messages.                 
+commit                   Record changes to the repository.                      
+    -a, --all            Automatically stage files that have been modified and  
+                         deleted.                                               
+    -m, --message=<msg>  Use <msg> as the commit message.                       
+    <file>...            A list of files to commit.                             
+                                                                                
+A simple command-line interface for git.                                        
+```
+
+The usage documentation comes together nicely!
+
+</details>
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!
