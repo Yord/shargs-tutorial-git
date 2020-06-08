@@ -564,6 +564,49 @@ The `message` field is indeed a string and `file` collects any number of argumen
 
 </details>
 
+### Multiple Subcommands
+
+One thing that makes shargs special,
+is its support for specifying [multiple subcommands](https://github.com/Yord/shargs#multiple-subcommands).
+
+Imagine you could write the following in real `git`:
+
+<details>
+<summary>
+<code>./git --help init -qqq commit -a -m 'First commit' package.json README.md</code>
+</summary>
+
+<br />
+
+```json
+{
+  "errs": [],
+  "args": {
+    "_": [],
+    "help": true,
+    "init": {
+      "_": [],
+      "quiet": 3
+    },
+    "commit": {
+      "_": [],
+      "all": true,
+      "message": "First commit",
+      "file": [
+        "package.json",
+        "README.md"
+      ]
+    }
+  }
+}
+```
+
+Note that shargs does not necessarily retain the `subcommand`'s order.
+Since JavaScript objects' order is not specified and depends on the engine,
+you should not rely on the object's field order.
+
+</details>
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!
