@@ -1,0 +1,52 @@
+#!/usr/bin/env node
+
+const {parserSync} = require('shargs')
+const {command, flag, string, subcommand, variadicPos} = require('shargs-opts')
+const {flagAsNumber, flagsAsBools, splitShortOpts} = require('shargs-parser')
+const {desc, optsListsWith, space, synopses, usage} = require('shargs-usage')
+
+const init = subcommand([
+  flag('quiet', ['-q', '--quiet'], {desc: 'Only print error and warning messages.'})
+])
+
+const commit = subcommand([
+  flag('all', ['-a', '--all'], {desc: 'Automatically stage files that have been modified and deleted.'}),
+  string('message', ['-m', '--message'], {descArg: 'msg', desc: 'Use <msg> as the commit message.'}),
+  variadicPos('file', {desc: 'A list of files to commit.'})
+])
+
+const opts = [
+  flag('help', ['--help'], {desc: 'Print this help message.'}),
+  init('init', ['init'], {desc: 'Create an empty Git repository or reinitialize an existing one.'}),
+  commit('commit', ['commit'], {desc: 'Record changes to the repository.'})
+]
+
+const git    = command('git', opts, {desc: 'A simple command-line interface for git.'})
+
+const stages = {
+  argv: [splitShortOpts],
+  args: [flagAsNumber('quiet'), flagsAsBools]
+}
+
+const parser = parserSync(stages)
+const parse  = parser(git)
+
+const argv   = process.argv.slice(2)
+const res    = parse(argv)
+
+if (res.args.help) {
+  const style = {
+    line: [{width: 50}],
+    cols: [{width: 20}, {width: 30}]
+  }
+  const help = usage([
+    synopses,
+    space,
+    optsListsWith({pad: 2}),
+    space,
+    desc
+  ])(git)(style)
+  console.log(help)
+} else {
+  console.log(JSON.stringify(res, null, 2))
+}
