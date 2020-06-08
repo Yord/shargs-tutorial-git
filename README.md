@@ -437,6 +437,71 @@ The `help` field is still a bool, while the `quiet` field is just a number, now.
 
 </details>
 
+### Rest Arrays
+
+We have already seen that rest arrays exist, now, let us get a feeling for how they work:
+
+<details>
+<summary>
+<code>./git --help init -qqq commit</code>
+</summary>
+
+<br />
+
+```json
+{
+  "errs": [],
+  "args": {
+    "_": [],
+    "help": true,
+    "init": {
+      "_": ["commit"],
+      "quiet": 3
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>
+<code>./git init -qqq --help commit</code>
+</summary>
+
+<br />
+
+```json
+{
+  "errs": [],
+  "args": {
+    "_": ["commit"],
+    "help": true,
+    "init": {
+      "_": [],
+      "quiet": 3
+    }
+  }
+}
+```
+
+</details>
+
+<br />
+
+In the first case, `"commit"` is still considered a part of the `init` `subcommand`.
+In the second case, `"commit"` is stored in the `git` `command`'s rest array.
+
+The reason for this difference is `--help`.
+Upon reaching `--help`, the `parser` tries to find the token in its options.
+In the second case, the parser first looks for `--help` in `init`'s options.
+Since it does not find an option with the [`args`](https://github.com/Yord/shargs#args) `--help`,
+it continues searching in `init`'s parent `git`.
+Here, it finds the `help` option that has a `--help` argument.
+
+However, it has left the `init` `subcommand`'s scope for good and is now back in `git`'s scope.
+This is why `commit` is in `git`'s rest array, while it is still in `init`'s rest array in the first case.
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!
