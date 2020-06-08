@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+const {parserSync} = require('shargs')
+
+const parser = parserSync()
+const parse  = parser()
+
+const argv   = process.argv.slice(2)
+const res    = parse(argv)
+
+console.log(JSON.stringify(res, null, 2))

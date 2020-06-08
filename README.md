@@ -41,6 +41,67 @@ Note that we install fixed versions.
 This tutorial should work with these exact versions, and might work with newer versions.
 However, this tutorial may not work if you use different versions.
 
+### Parser
+
+We start with a minimal shargs parser:
+
+```js
+#!/usr/bin/env node
+
+const {parserSync} = require('shargs')
+
+const parser = parserSync()
+const parse  = parser()
+
+const argv   = process.argv.slice(2)
+const res    = parse(argv)
+
+console.log(JSON.stringify(res, null, 2))
+```
+
+We choose to write a synchronous parser by importing `parserSync`.
+Next, we initialize a new `parser`.
+Calling the `parser` returns a `parse` function.
+
+The `parse` function is then used to process `argv` argument values.
+Note, that we skip the first two parameters of `process.argv`.
+Those are always `node` and the file name.
+Finally, we `log` the result to the `console`.
+
+Let us now call this minimal shargs parser to see what it prints out.
+
+<details>
+<summary>
+<code>$ ./git</code>
+</summary>
+
+<br />
+
+```json
+{
+  errs: [
+    {
+      code: "CommandExpected",
+      msg: "Expected a command with a string 'key' field and an 'opts' array.",
+      info: {opt: {}}
+    }
+  ],
+  args: {
+    _: []
+  }
+}
+```
+
+`parser` reports a `CommandExpected` error.
+The shargs documentation has a table of error codes,
+where we can look up [`CommandExpected`](https://github.com/Yord/shargs/tree/0.24.4#CommandExpected).
+We find out, that the error is thrown in the `toOpts` stage.
+
+The problem is, that we did not provide an `opt` parameter to `parser`.
+Note though, that the parser did work anyway, by reporting an error, helping us along the way.
+
+</details>
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!
