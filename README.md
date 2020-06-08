@@ -343,6 +343,54 @@ Indeed, the `init` field has now a nested `quiet` field with a `flag` value.
 
 </details>
 
+### Short Option Groups
+
+Many commands count their `quiet` arguments and hide logging information based on how often `-q` was passed.
+Usually, these commands let you write `-qqq` instead of `-q -q -q`.
+A feature shargs calls <em>short option groups</em>.
+They are supported by adding the [`splitShortOpts`](https://github.com/Yord/shargs#splitShortOpts) stage:
+
+```js
+// ...
+const {flagAsBool, splitShortOpts} = require('shargs-parser')
+
+const stages = {
+  argv: [splitShortOpts],
+  args: [flagAsBool('help')]
+}
+// ...
+```
+
+Now we should be able to define how quiet the output should be.
+
+<details>
+<summary>
+<code>./git init -qqq</code>
+</summary>
+
+<br />
+
+```json
+{
+  "errs": [],
+  "args": {
+    "_": [],
+    "init": {
+      "_": [],
+      "quiet": {
+        "type": "flag",
+        "count": 3
+      }
+    }
+  }
+}
+```
+
+`splitShortOpts` actually rewrites `./git init -qqq` to `./git init -q -q -q` internally.
+Note that the `quiet` field `count` is `3`, which is exactly the number of `-q` arguments.
+
+</details>
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!

@@ -2,7 +2,7 @@
 
 const {parserSync} = require('shargs')
 const {command, flag, subcommand} = require('shargs-opts')
-const {flagAsBool} = require('shargs-parser')
+const {flagAsBool, splitShortOpts} = require('shargs-parser')
 
 const init = subcommand([
   flag('quiet', ['-q', '--quiet'])
@@ -16,6 +16,7 @@ const opts = [
 const git    = command('git', opts)
 
 const stages = {
+  argv: [splitShortOpts],
   args: [flagAsBool('help')]
 }
 
