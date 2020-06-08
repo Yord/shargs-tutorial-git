@@ -391,6 +391,52 @@ Note that the `quiet` field `count` is `3`, which is exactly the number of `-q` 
 
 </details>
 
+### Transforming Flags
+
+Like `help`, we do not need to know in the results, that `quiet` was a `flag`.
+Storing its `count` as a number suffices:
+
+```js
+// ...
+const {flagsAsBools, flagAsNumber, splitShortOpts} = require('shargs-parser')
+
+const stages = {
+  argv: [splitShortOpts],
+  args: [flagAsNumber('quiet'), flagsAsBools]
+}
+// ...
+```
+
+We have changed two things, here:
+First, we have added the [`flagAsNumber`](https://github.com/Yord/shargs#flagAsNumber) stage to transform `quiet`.
+Second, we have generalized `flagAsBool` to [`flagsAsBools`](https://github.com/Yord/shargs#flagsAsBools),
+a stage that transforms all remaining `flag`s to bools.
+
+<details>
+<summary>
+<code>./git --help init -qqq</code>
+</summary>
+
+<br />
+
+```json
+{
+  "errs": [],
+  "args": {
+    "_": [],
+    "help": true,
+    "init": {
+      "_": [],
+      "quiet": 3
+    }
+  }
+}
+```
+
+The `help` field is still a bool, while the `quiet` field is just a number, now.
+
+</details>
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!
