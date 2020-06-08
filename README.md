@@ -647,6 +647,39 @@ Note, that the list is not sorted, but is presented in the order we have specifi
 
 </details>
 
+### Descriptions
+
+We can enhance the usage documentation by adding [`desc`](https://github.com/Yord/shargs#desc)riptions
+to `git`'s options:
+
+```js
+// ...
+const opts = [
+  flag('help', ['--help'], {desc: 'Print this help message.'}),
+  init('init', ['init'], {desc: 'Create an empty Git repository or reinitialize an existing one.'}),
+  commit('commit', ['commit'], {desc: 'Record changes to the repository.'})
+]
+// ...
+```
+
+The `--help` page is more helpful, now.
+
+<details>
+<summary>
+<code>./git --help</code>
+</summary>
+
+<br />
+
+```bash
+--help                   Print this help message.                               
+init                     Create an empty Git repository or reinitialize an      
+                         existing one.                                          
+commit                   Record changes to the repository.                      
+```
+
+</details>
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!

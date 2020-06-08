@@ -16,9 +16,9 @@ const commit = subcommand([
 ])
 
 const opts = [
-  flag('help', ['--help']),
-  init('init', ['init']),
-  commit('commit', ['commit'])
+  flag('help', ['--help'], {desc: 'Print this help message.'}),
+  init('init', ['init'], {desc: 'Create an empty Git repository or reinitialize an existing one.'}),
+  commit('commit', ['commit'], {desc: 'Record changes to the repository.'})
 ]
 
 const git    = command('git', opts)
