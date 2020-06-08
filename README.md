@@ -734,6 +734,42 @@ All options are now documented.
 
 </details>
 
+### Argument Descriptions
+
+Have you recognized the line break, because `--message=<string>` is just a little bit too long?
+Let us fix that:
+
+```js
+// ...
+  string('message', ['-m', '--message'], {descArg: 'msg', desc: 'Use <msg> as the commit message.'}),
+// ...
+```
+
+We have used the [`descArg`](https://github.com/Yord/shargs#descArg) field to change `message`'s value description
+from `<string>` to `<msg>`.
+This has given us just enough space to fix the layout.
+
+<details>
+<summary>
+<code>./git --help</code>
+</summary>
+
+<br />
+
+```bash
+--help                   Print this help message.                               
+init                     Create an empty Git repository or reinitialize an      
+                         existing one.                                          
+    -q, --quiet          Only print error and warning messages.                 
+commit                   Record changes to the repository.                      
+    -a, --all            Automatically stage files that have been modified and  
+                         deleted.                                               
+    -m, --message=<msg>  Use <msg> as the commit message.                       
+    <file>...            A list of files to commit.                             
+```
+
+</details>
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!

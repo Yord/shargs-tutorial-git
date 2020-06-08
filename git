@@ -11,7 +11,7 @@ const init = subcommand([
 
 const commit = subcommand([
   flag('all', ['-a', '--all'], {desc: 'Automatically stage files that have been modified and deleted.'}),
-  string('message', ['-m', '--message'], {desc: 'Use <string> as the commit message.'}),
+  string('message', ['-m', '--message'], {descArg: 'msg', desc: 'Use <msg> as the commit message.'}),
   variadicPos('file', {desc: 'A list of files to commit.'})
 ])
 
