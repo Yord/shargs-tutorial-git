@@ -197,6 +197,55 @@ Shargs separates between the external API of providing an argument, and the inte
 
 </details>
 
+### Parser Stages
+
+`--help` is parsed into a weird flag object with a `count` field.
+However, we do not need to know, how often `--help` has been called,
+we only need to know if it has been provided at least once.
+
+So we do not need a `flag` value, a `bool` is enough:
+
+```js
+// ...
+const {flagAsBool} = require('shargs-parser')
+// ...
+const stages = {
+  args: [flagAsBool('help')]
+}
+
+const parser = parserSync(stages)
+//...
+```
+
+We have modified `parser`'s behavior by adding an `args` stage to its `stages` parameter.
+[`flagAsBool`](https://github.com/Yord/shargs#flagAsBool) transforms a `flag` with a given key (here `'help'`) into a bool.
+
+Shargs works in seven different [steps](https://github.com/Yord/shargs#stages) that each take one or more stages.
+The `args` step is at the sixth position.
+
+Let us see `stages` in action.
+
+<details>
+<summary>
+<code>./git --help</code>
+</summary>
+
+<br />
+
+```json
+{
+  errs: [],
+  args: {
+    _: [],
+    help: true
+  }
+}
+```
+
+The `help` field is now `true`.
+
+</details>
+
 ## Reporting Issues
 
 Please report issues [in the `shargs` tracker][issues]!

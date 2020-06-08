@@ -2,6 +2,7 @@
 
 const {parserSync} = require('shargs')
 const {command, flag} = require('shargs-opts')
+const {flagAsBool} = require('shargs-parser')
 
 const opts   = [
   flag('help', ['--help'])
@@ -9,7 +10,11 @@ const opts   = [
 
 const git    = command('git', opts)
 
-const parser = parserSync()
+const stages = {
+  args: [flagAsBool('help')]
+}
+
+const parser = parserSync(stages)
 const parse  = parser(git)
 
 const argv   = process.argv.slice(2)
