@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 const {parserSync} = require('shargs')
-const {command, flag, string, subcommand, variadicPos} = require('shargs-opts')
-const {flagAsNumber, flagsAsBools, splitShortOpts} = require('shargs-parser')
-const {desc, optsListsWith, space, synopses, usage} = require('shargs-usage')
+const {command, flag, string, subcommand, variadicPos} = require('shargs/opts')
+const {flagAsNumber, flagsAsBools, splitShortOpts} = require('shargs/parser')
+const {desc, optsListsWith, space, synopses, usage} = require('shargs/usage')
 
 const init = subcommand([
   flag('quiet', ['-q', '--quiet'], {desc: 'Only print error and warning messages.'})

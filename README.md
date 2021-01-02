@@ -34,12 +34,12 @@ I assume, you are already familiar with `git`, but even if you are not, you shou
 Let us start with installing some shargs packages:
 
 ```bash
-$ npm install --save --save-exact shargs@0.24.4 shargs-opts@0.5.0 shargs-parser@0.6.0 shargs-usage@0.6.0
+$ npm install --save --save-exact shargs@0.26.0
 ```
 
-Note that we install fixed versions.
-This tutorial should work with these exact versions, and might work with newer versions.
-However, this tutorial may not work if you use different versions.
+Note that we install a fixed version.
+This tutorial should work with this exact version, and might work with a newer version.
+However, this tutorial may not work if you use a different version.
 
 ### Parser
 
@@ -111,7 +111,7 @@ We can make it work by adding a `command`:
 #!/usr/bin/env node
 
 const {parserSync} = require('shargs')
-const {command} = require('shargs-opts')
+const {command} = require('shargs/opts')
 
 const git    = command('git', [])
 
@@ -158,7 +158,7 @@ Let us add a `--help` option to the `git` `command`, next:
 
 ```js
 // ...
-const {flag} = require('shargs-opts')
+const {flag} = require('shargs/opts')
 
 const opts = [
   flag('help', ['--help'])
@@ -207,7 +207,7 @@ So we do not need a `flag` value, a `bool` is enough:
 
 ```js
 // ...
-const {flagAsBool} = require('shargs-parser')
+const {flagAsBool} = require('shargs/parser')
 // ...
 const stages = {
   args: [flagAsBool('help')]
@@ -253,7 +253,7 @@ Let us start by adding the `init` `subcommand`:
 
 ```js
 // ...
-const {flag, subcommand} = require('shargs-opts')
+const {flag, subcommand} = require('shargs/opts')
 // ...
 const init = subcommand([])
 
@@ -352,7 +352,7 @@ They are supported by adding the [`splitShortOpts`](https://github.com/Yord/shar
 
 ```js
 // ...
-const {flagAsBool, splitShortOpts} = require('shargs-parser')
+const {flagAsBool, splitShortOpts} = require('shargs/parser')
 
 const stages = {
   argv: [splitShortOpts],
@@ -398,7 +398,7 @@ Storing its `count` as a number suffices:
 
 ```js
 // ...
-const {flagsAsBools, flagAsNumber, splitShortOpts} = require('shargs-parser')
+const {flagsAsBools, flagAsNumber, splitShortOpts} = require('shargs/parser')
 
 const stages = {
   argv: [splitShortOpts],
@@ -509,7 +509,7 @@ Shargs supports both, options and positional arguments:
 
 ```js
 // ...
-const {flag, string, subcommand, variadicPos} = require('shargs-opts')
+const {flag, string, subcommand, variadicPos} = require('shargs/opts')
 
 const commit = subcommand([
   flag('all', ['-a', '--all']),
@@ -611,11 +611,11 @@ you should not rely on the object's field order.
 
 Each command has to have a help page.
 We can automatically generate a help text based on `git` with
-[`shargs-usage`](https://github.com/Yord/shargs/tree/0.24.4#automatic-usage-documentation-generation):
+[`shargs/usage`](https://github.com/Yord/shargs/tree/0.24.4#automatic-usage-documentation-generation):
 
 ```js
 // ...
-const {optsList} = require('shargs-usage')
+const {optsList} = require('shargs/usage')
 // ...
 
 if (res.args.help) {
@@ -686,7 +686,7 @@ commit                   Record changes to the repository.
 
 ```js
 // ...
-const {optsLists} = require('shargs-usage')
+const {optsLists} = require('shargs/usage')
 // ...
 const init = subcommand([
   flag('quiet', ['-q', '--quiet'], {desc: 'Only print error and warning messages.'})
@@ -776,7 +776,7 @@ We can do better than just displaying the options in a list and add some more el
 
 ```js
 // ...
-const {desc, optsLists, space, synopses, usage} = require('shargs-usage')
+const {desc, optsLists, space, synopses, usage} = require('shargs/usage')
 // ...
 if (res.args.help) {
   const help = usage([
@@ -830,7 +830,7 @@ Now that the contents of our usage documentation are complete, let us finish off
 
 ```js
 // ...
-const {desc, optsListsWith, space, synopses, usage} = require('shargs-usage')
+const {desc, optsListsWith, space, synopses, usage} = require('shargs/usage')
 // ...
   const style = {
     line: [{width: 50}],
